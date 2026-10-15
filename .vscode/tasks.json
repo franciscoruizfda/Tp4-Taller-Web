@@ -1,0 +1,15 @@
+{
+  // Ctrl+Shift+B → abre BeatMind en el navegador con Vite (reemplaza a Live Server en este proyecto).
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "BeatMind: abrir en el navegador",
+      "type": "shell",
+      "command": "npm.cmd run start",
+      "isBackground": true,
+      "problemMatcher": [],
+      "group": { "kind": "build", "isDefault": true },
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    }
+  ]
+}

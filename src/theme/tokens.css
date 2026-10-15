@@ -1,0 +1,100 @@
+/*
+ * BeatMind · Neon Studio — design tokens.
+ * Single source for color, glow, radius, type and motion. Components never use raw hex:
+ * add or adjust a token here instead. See .claude/skills/beatmind-neon/SKILL.md.
+ */
+:root {
+  /* Palette from the user's moodboard (Imagenes/Moodboard-Visual-Taller.png):
+     principal #6A00FF · secundario #A761C3 · complementario #121212 · #FFFFFF · acento #00FF99 */
+
+  /* Base: the complementary #121212, with a faint violet cast on raised surfaces */
+  --bm-void: #0a0a0b;
+  --bm-bg: #121212;
+  --bm-surface: #17151b;
+  --bm-surface-2: #1e1b25;
+  --bm-surface-3: #282236;
+  --bm-line: rgb(255 255 255 / 0.07);
+  --bm-line-strong: rgb(255 255 255 / 0.13);
+  --bm-line-violet: rgb(138 51 255 / 0.42);
+
+  /* Text */
+  --bm-text: #ffffff;
+  --bm-text-2: #c3bccd;
+  --bm-text-3: #918a9c;
+
+  /* Electric violet scale, built around the principal #6A00FF */
+  --bm-violet-50: #f2e9ff;
+  --bm-violet-200: #d2b2ff;
+  --bm-violet-300: #ad76ff;
+  --bm-violet-400: #8a33ff;
+  --bm-violet-500: #6a00ff;
+  --bm-violet-600: #5400cc;
+  --bm-violet-800: #2a0066;
+  --bm-violet-900: #16003a;
+  --bm-on-violet: #ffffff;
+
+  /* Secondary orchid #A761C3: soft highlights and gradient ends */
+  --bm-orchid: #a761c3;
+  --bm-orchid-200: #e2c3ee;
+  --bm-grad-orchid: linear-gradient(180deg, #bb74d6 0%, #8f47ad 100%);
+  /* «Ir a núcleo 3»: orchid into violet, the way on to the rest of the infographic */
+  --bm-grad-nucleus: linear-gradient(100deg, #bb74d6 0%, #8a33ff 60%, #6a00ff 100%);
+  --bm-glow-orchid: 0 0 0 1px rgb(167 97 195 / 0.45), 0 12px 36px -8px rgb(167 97 195 / 0.75);
+  --bm-glow-orchid-strong: 0 0 0 1px rgb(226 195 238 / 0.7), 0 16px 48px -6px rgb(167 97 195 / 0.95);
+
+  /* Accents (sparingly): status, secondary light, live/record */
+  --bm-mint: #00ff99;
+  --bm-on-mint: #06120c;
+  --bm-blue: #5b84ff;
+  --bm-ember: #ff7a3d;
+
+  /* Instrument tones: mirror of the track colors in src/music.ts (saved project data).
+     Like the DAW lanes in the moodboard, they are the only multicolor accents. */
+  --bm-kick: #b09aff;
+  --bm-snare: #efb084;
+  --bm-hat: #80d7b7;
+  --bm-bass: #8dbaf3;
+  --bm-melody: #eb97c8;
+
+  /* Gradients */
+  --bm-grad-primary: linear-gradient(180deg, #8a33ff 0%, #6a00ff 100%);
+  --bm-grad-text: linear-gradient(180deg, #ffffff 30%, #e2c3ee 100%);
+  --bm-grad-accent-text: linear-gradient(95deg, #e2c3ee 0%, #a761c3 45%, #8a33ff 100%);
+  --bm-grad-glass: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.015));
+  --bm-glow-top: radial-gradient(120% 70% at 50% -10%, rgb(106 0 255 / 0.22), transparent 62%);
+  --bm-horizon:
+    radial-gradient(70% 55% at 50% -12%, rgb(106 0 255 / 0.42), transparent 70%),
+    radial-gradient(35% 25% at 50% -2%, rgb(167 97 195 / 0.2), transparent 70%);
+
+  /* Glow & depth */
+  --bm-highlight: inset 0 1px 0 rgb(255 255 255 / 0.08);
+  --bm-glow-sm: 0 0 0 1px rgb(138 51 255 / 0.4), 0 0 18px rgb(106 0 255 / 0.35);
+  --bm-glow-md: 0 0 0 1px rgb(138 51 255 / 0.5), 0 10px 40px -6px rgb(106 0 255 / 0.55);
+  --bm-glow-lg: 0 0 90px rgb(106 0 255 / 0.5);
+  --bm-drop: 0 30px 70px -30px rgb(0 0 0 / 0.75);
+  --bm-lift: 0 8px 18px -10px rgb(0 0 0 / 0.9);
+
+  /* Radius */
+  --bm-r-sm: 10px;
+  --bm-r-md: 16px;
+  --bm-r-lg: 24px;
+  --bm-r-pill: 999px;
+
+  /* Type (fonts already bundled via Fontsource) */
+  --bm-font-display: 'Space Grotesk', Inter, sans-serif;
+  --bm-font-ui: Inter, system-ui, sans-serif;
+  --bm-track-display: -0.04em;
+  --bm-track-label: 0.16em;
+
+  /* Motion */
+  --bm-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --bm-dur: 0.2s;
+
+  /* Legacy aliases used by styles.css */
+  --bg: var(--bm-bg);
+  --surface: var(--bm-surface);
+  --border: var(--bm-line);
+  --violet: var(--bm-violet-300);
+  --mint: var(--bm-mint);
+  background: var(--bm-bg);
+}

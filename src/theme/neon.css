@@ -1,0 +1,1064 @@
+/*
+ * BeatMind · Neon Studio — skin layer.
+ * Loaded last (see main.tsx). Only visual properties live here: color, background, border,
+ * shadow, radius, letter-spacing. Layout and spacing stay in guided.css / introduction.css.
+ * Every value comes from tokens.css. Recipes: .claude/skills/beatmind-neon/SKILL.md.
+ */
+
+/* ── Atmosphere: horizon glow + perspective grid ─────────────────────────── */
+.guide-app {
+  --g-bg: var(--bm-bg);
+  --g-panel: var(--bm-surface);
+  --g-line: var(--bm-line);
+  --g-text: var(--bm-text);
+  --g-muted: var(--bm-text-2);
+  position: relative;
+  isolation: isolate;
+  background: var(--bm-bg);
+  color: var(--bm-text);
+}
+.guide-app::before,
+.guide-app::after {
+  content: '';
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+}
+.guide-app::before {
+  inset: 0 0 auto;
+  height: calc(70 * var(--bm-vh));
+  background: var(--bm-horizon);
+}
+.guide-app::after {
+  left: -50%;
+  right: -50%;
+  bottom: calc(-12 * var(--bm-vh));
+  height: calc(52 * var(--bm-vh));
+  background-image:
+    linear-gradient(rgb(138 51 255 / 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(138 51 255 / 0.2) 1px, transparent 1px);
+  background-size: 72px 72px;
+  transform: perspective(520px) rotateX(64deg);
+  transform-origin: bottom;
+  mask-image: linear-gradient(to top, black, transparent 78%);
+  opacity: 0.38;
+}
+.guide-app h1,
+.guide-app h2,
+.guide-app h3 {
+  letter-spacing: var(--bm-track-display);
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+summary:focus-visible {
+  outline-color: var(--bm-violet-200);
+}
+
+/* ── Gradient headlines ──────────────────────────────────────────────────── */
+.lesson-heading h1,
+.intro-screen h1 {
+  background: var(--bm-grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.intro-screen h1 > span {
+  background: var(--bm-grad-accent-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.lesson-heading p,
+.intro-screen > p {
+  color: var(--bm-text-2);
+}
+
+/* ── Chip label (moodboard: “Introducing…” pill) ─────────────────────────── */
+.guide-progress-label > span:first-child,
+.intro-progress > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border: 1px solid var(--bm-line-violet);
+  border-radius: var(--bm-r-pill);
+  background: rgb(106 0 255 / 0.1);
+  color: var(--bm-violet-200);
+  font-weight: 600;
+  letter-spacing: var(--bm-track-label);
+}
+.guide-progress-label > span:first-child::before,
+.intro-progress > span:first-child::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--bm-violet-300);
+  box-shadow: 0 0 10px var(--bm-violet-400);
+}
+.guide-progress-label,
+.intro-progress {
+  color: var(--bm-text-3);
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+.guide-app .g-button {
+  border-radius: var(--bm-r-pill);
+  transition:
+    background var(--bm-dur),
+    box-shadow var(--bm-dur) var(--bm-ease),
+    transform var(--bm-dur) var(--bm-ease);
+}
+.g-button.primary {
+  background: var(--bm-grad-primary);
+  color: var(--bm-on-violet);
+  box-shadow: var(--bm-highlight), var(--bm-glow-sm);
+}
+.g-button.primary:hover:not(:disabled) {
+  box-shadow: var(--bm-highlight), var(--bm-glow-md);
+}
+.g-button.primary:disabled {
+  background: var(--bm-surface-3);
+  color: var(--bm-text-3);
+  box-shadow: none;
+  opacity: 1;
+}
+.g-button.secondary {
+  background: var(--bm-grad-glass), var(--bm-surface-2);
+  border-color: var(--bm-line-strong);
+  color: var(--bm-violet-50);
+  box-shadow: var(--bm-highlight);
+}
+.g-button.secondary:hover:not(:disabled) {
+  border-color: var(--bm-line-violet);
+}
+.g-button.quiet {
+  color: var(--bm-text-2);
+}
+.g-button.quiet:hover:not(:disabled) {
+  color: var(--bm-text);
+}
+.g-text {
+  color: var(--bm-violet-200);
+}
+.g-icon {
+  color: var(--bm-text-2);
+  border-radius: var(--bm-r-pill);
+}
+.g-icon:hover {
+  background: var(--bm-surface-3);
+  color: var(--bm-text);
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.guide-header {
+  background: rgb(18 18 18 / 0.55);
+  border-bottom-color: var(--bm-line);
+  backdrop-filter: blur(14px) saturate(140%);
+}
+.guide-brand > span > span {
+  color: var(--bm-violet-400);
+}
+.guide-header-center {
+  color: var(--bm-text-3);
+}
+.guide-save {
+  color: var(--bm-text-3);
+}
+.guide-save i {
+  background: var(--bm-text-3);
+}
+.guide-save .saved {
+  background: var(--bm-mint);
+  box-shadow: 0 0 8px var(--bm-mint);
+}
+.g-options {
+  border-color: var(--bm-line-strong);
+  border-radius: var(--bm-r-pill);
+  background: var(--bm-grad-glass), var(--bm-surface-2);
+  color: var(--bm-text-2);
+}
+
+/* ── Stepper ─────────────────────────────────────────────────────────────── */
+.guide-progress li:not(:last-child):after {
+  background: var(--bm-line-strong);
+}
+.guide-progress button {
+  color: var(--bm-text-3);
+}
+.guide-progress button > span {
+  background: var(--bm-surface-2);
+  border-color: var(--bm-line-strong);
+  color: var(--bm-text-3);
+}
+.guide-progress .visited > span {
+  background: var(--bm-violet-900);
+  border-color: var(--bm-line-violet);
+  color: var(--bm-violet-200);
+}
+.guide-progress .visited strong {
+  color: var(--bm-text-2);
+}
+.guide-progress .current > span {
+  background: var(--bm-grad-primary);
+  border-color: transparent;
+  color: var(--bm-on-violet);
+  box-shadow:
+    0 0 0 6px rgb(106 0 255 / 0.14),
+    var(--bm-glow-md);
+}
+.guide-progress .current strong {
+  color: var(--bm-text);
+}
+
+/* ── Cards ───────────────────────────────────────────────────────────────── */
+.lesson-card {
+  background: var(--bm-glow-top), var(--bm-surface);
+  border-color: var(--bm-line);
+  border-radius: var(--bm-r-lg);
+  box-shadow: var(--bm-highlight), var(--bm-drop);
+}
+.task-heading {
+  color: var(--bm-violet-300);
+}
+.task-heading h2 {
+  color: var(--bm-text);
+}
+.lesson-caption {
+  color: var(--bm-text-3);
+}
+.learning-concept {
+  background: var(--bm-grad-glass), var(--bm-surface);
+  border-color: var(--bm-line);
+  border-radius: var(--bm-r-md);
+  color: var(--bm-text-2);
+}
+.learning-concept summary svg {
+  color: var(--bm-violet-300);
+}
+.learning-concept > p {
+  color: var(--bm-text-2);
+}
+.lesson-footer {
+  border-top-color: var(--bm-line);
+}
+.lesson-footer > span {
+  color: var(--bm-text-3);
+}
+
+/* ── Glow card: BEATY ────────────────────────────────────────────────────── */
+.beaty-card {
+  background:
+    radial-gradient(110% 55% at 50% 0%, rgb(106 0 255 / 0.36), transparent 70%),
+    linear-gradient(180deg, var(--bm-surface-3), var(--bm-surface) 70%);
+  border-color: var(--bm-line-violet);
+  border-radius: var(--bm-r-lg);
+  box-shadow:
+    var(--bm-highlight),
+    0 30px 80px -30px rgb(106 0 255 / 0.5);
+}
+.beaty-heading {
+  border-color: var(--bm-line);
+}
+.beaty-heading strong {
+  color: var(--bm-text);
+  letter-spacing: 0.06em;
+}
+.beaty-heading > div > span {
+  color: var(--bm-text-3);
+}
+.beaty-tag {
+  border-color: var(--bm-line-violet);
+  border-radius: var(--bm-r-pill);
+  background: rgb(106 0 255 / 0.12);
+  color: var(--bm-violet-200);
+}
+.beaty-face {
+  background: radial-gradient(circle, rgb(106 0 255 / 0.4), transparent 70%);
+}
+.beaty-face.small {
+  background: radial-gradient(circle at 50% 35%, rgb(106 0 255 / 0.5), var(--bm-surface-2) 72%);
+  box-shadow: inset 0 0 0 1px var(--bm-line-violet);
+}
+.beaty-content h2 {
+  color: var(--bm-text);
+}
+.beaty-content p {
+  color: var(--bm-text-2);
+}
+.beaty-content .g-button.quiet {
+  color: var(--bm-text-2);
+}
+.beaty-tip {
+  color: var(--bm-violet-200) !important;
+  background: rgb(106 0 255 / 0.1);
+  border-left-color: var(--bm-violet-400);
+}
+.beaty-promise {
+  background: rgb(0 0 0 / 0.25);
+  border-top-color: var(--bm-line);
+  color: var(--bm-text-3);
+}
+.beaty-promise svg {
+  color: var(--bm-mint);
+}
+.undo-guide {
+  border-color: var(--bm-line-strong);
+  border-radius: var(--bm-r-pill);
+  color: var(--bm-text-2);
+}
+
+/* ── Proposals ───────────────────────────────────────────────────────────── */
+.proposal-choices button {
+  background: var(--bm-surface-2);
+  border-color: var(--bm-line);
+  border-radius: var(--bm-r-sm);
+  color: var(--bm-text-2);
+}
+.proposal-choices button span {
+  color: var(--bm-text-3);
+}
+.proposal-choices button.selected {
+  background: rgb(106 0 255 / 0.2);
+  border-color: var(--bm-violet-400);
+  color: var(--bm-text);
+  box-shadow: var(--bm-glow-sm);
+}
+.proposal-choices button.selected span {
+  color: var(--bm-violet-200);
+}
+.proposal-description {
+  background: rgb(0 0 0 / 0.28);
+  border-color: var(--bm-line-violet);
+  border-radius: var(--bm-r-md);
+}
+.proposal-description > strong {
+  color: var(--bm-violet-50);
+}
+.proposal-question {
+  color: var(--bm-text-2);
+  border-top-color: var(--bm-line);
+}
+
+/* ── Player bar ──────────────────────────────────────────────────────────── */
+.listen-bar {
+  background: var(--bm-grad-glass), var(--bm-surface);
+  border-color: var(--bm-line);
+  border-radius: var(--bm-r-lg);
+  box-shadow: var(--bm-highlight);
+}
+.listen-bar.previewing {
+  background: var(--bm-glow-top), var(--bm-surface-2);
+  border-color: var(--bm-line-violet);
+  box-shadow: var(--bm-highlight), var(--bm-glow-sm);
+}
+.g-listen-play {
+  border-radius: 50%;
+  background: var(--bm-grad-primary);
+  color: var(--bm-on-violet);
+  box-shadow: var(--bm-highlight), var(--bm-glow-md);
+}
+.listen-bar > div:nth-child(2) > strong {
+  color: var(--bm-text);
+}
+.listen-bar > div:nth-child(2) > span {
+  color: var(--bm-text-3);
+}
+.listen-wave i {
+  background: linear-gradient(180deg, var(--bm-violet-200), var(--bm-violet-500));
+  box-shadow: 0 0 8px rgb(106 0 255 / 0.5);
+}
+.example-playing {
+  background: var(--bm-surface-2);
+  border-color: var(--bm-line-violet);
+  border-radius: var(--bm-r-md);
+  color: var(--bm-violet-200);
+}
+
+/* ── Style cards ─────────────────────────────────────────────────────────── */
+.style-choice {
+  background: var(--bm-surface-2);
+  border-color: var(--bm-line);
+  border-radius: var(--bm-r-md);
+}
+.style-choice.chosen {
+  background: var(--bm-glow-top), var(--bm-surface-3);
+  border-color: var(--bm-violet-400);
+  box-shadow: var(--bm-glow-md);
+}
+.style-visual {
+  --genre: var(--bm-violet-500);
+  background:
+    radial-gradient(
+      70% 120% at 50% 130%,
+      color-mix(in srgb, var(--genre) 55%, transparent),
+      transparent 72%
+    ),
+    var(--bm-surface);
+  border-bottom-color: var(--bm-line);
+}
+/* Photo fades into the card and picks up a hint of the genre colour. */
+.style-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 45%, var(--bm-surface-2)),
+    color-mix(in srgb, var(--genre) 14%, transparent);
+}
+.style-choice.chosen .style-visual::after {
+  background: linear-gradient(180deg, transparent 55%, var(--bm-surface-3));
+}
+.style-visual-1 {
+  --genre: var(--bm-melody);
+}
+.style-visual-2 {
+  --genre: var(--bm-hat);
+}
+.style-visual-3 {
+  --genre: var(--bm-bass);
+}
+.style-name {
+  color: var(--bm-text);
+}
+.style-name > span {
+  border-color: var(--bm-line-strong);
+  color: var(--bm-text-3);
+}
+.chosen .style-name > span {
+  background: var(--bm-grad-primary);
+  border-color: transparent;
+  color: var(--bm-on-violet);
+}
+.style-select > strong {
+  color: var(--bm-violet-200);
+}
+.style-select p {
+  color: var(--bm-text-2);
+}
+.style-listen {
+  background: rgb(255 255 255 / 0.025);
+  border-top-color: var(--bm-line);
+  color: var(--bm-violet-200);
+}
+
+/* ── Tempo orb ───────────────────────────────────────────────────────────── */
+.pulse-ring {
+  border-color: rgb(138 51 255 / 0.55);
+  background: radial-gradient(circle, rgb(106 0 255 / 0.3), rgb(106 0 255 / 0.04) 70%);
+  box-shadow:
+    0 0 60px rgb(106 0 255 / 0.35),
+    inset 0 0 30px rgb(106 0 255 / 0.25);
+}
+.pulse-ring.outer {
+  border-color: var(--bm-line-violet);
+  background: none;
+  box-shadow: none;
+}
+.pulse-display strong {
+  color: var(--bm-text);
+  text-shadow: 0 0 30px rgb(138 51 255 / 0.7);
+}
+.pulse-display > div > span {
+  color: var(--bm-text-2);
+}
+.tempo-slider-label {
+  color: var(--bm-text);
+}
+.tempo-labels {
+  color: var(--bm-text-3);
+}
+
+/* ── Sliders ─────────────────────────────────────────────────────────────── */
+.guide-app input[type='range'] {
+  height: 6px;
+  border-radius: var(--bm-r-pill);
+  background: var(--bm-surface-3);
+  box-shadow: inset 0 0 0 1px var(--bm-line);
+}
+.guide-app input[type='range']::-webkit-slider-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--sound-color, var(--bm-violet-300));
+  border: 3px solid var(--bm-bg);
+  box-shadow:
+    0 0 0 1px var(--sound-color, var(--bm-violet-400)),
+    0 0 16px color-mix(in srgb, var(--sound-color, var(--bm-violet-400)) 70%, transparent);
+}
+.guide-app input[type='range']::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--sound-color, var(--bm-violet-300));
+  border: 3px solid var(--bm-bg);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--sound-color, var(--bm-violet-400)) 70%, transparent);
+}
+
+/* ── Rhythm: segmented pills + sequencer lanes ───────────────────────────── */
+.rhythm-tabs {
+  border-bottom-color: var(--bm-line);
+}
+/* Instrument tabs and note keys are raised keycaps in their instrument color (--sound-color
+   inline): tinted glass with a lit lower edge at rest, a lift on hover, a full glow when chosen. */
+.rhythm-tabs button,
+.note-keys button {
+  background: var(--bm-grad-glass), color-mix(in srgb, var(--sound-color) 8%, var(--bm-surface-2));
+  border-color: color-mix(in srgb, var(--sound-color) 45%, var(--bm-line-strong));
+  color: var(--bm-text);
+  box-shadow:
+    var(--bm-highlight),
+    inset 0 -3px 0 color-mix(in srgb, var(--sound-color) 32%, transparent),
+    var(--bm-lift);
+  transition:
+    background var(--bm-dur),
+    border-color var(--bm-dur),
+    box-shadow var(--bm-dur) var(--bm-ease),
+    transform var(--bm-dur) var(--bm-ease);
+}
+.rhythm-tabs button {
+  border-radius: var(--bm-r-pill);
+}
+@media (hover: hover) {
+  .rhythm-tabs button:not(.selected):hover,
+  .note-keys button:not(.selected):hover {
+    background:
+      var(--bm-grad-glass), color-mix(in srgb, var(--sound-color) 16%, var(--bm-surface-2));
+    border-color: var(--sound-color);
+    box-shadow:
+      var(--bm-highlight),
+      inset 0 -3px 0 color-mix(in srgb, var(--sound-color) 50%, transparent),
+      0 12px 26px -12px color-mix(in srgb, var(--sound-color) 75%, transparent);
+    transform: translateY(-2px);
+  }
+}
+.rhythm-tabs button:active,
+.note-keys button:active {
+  transform: translateY(1px);
+}
+.rhythm-tabs button > span {
+  background: color-mix(in srgb, var(--sound-color) 26%, var(--bm-surface-3));
+  color: color-mix(in srgb, var(--sound-color) 60%, white);
+}
+.rhythm-tabs button.selected,
+.note-keys button.selected {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--sound-color) 50%, var(--bm-surface-2)),
+    color-mix(in srgb, var(--sound-color) 22%, var(--bm-surface))
+  );
+  border-color: var(--sound-color);
+  color: var(--bm-text);
+  box-shadow:
+    var(--bm-highlight),
+    0 0 0 2px color-mix(in srgb, var(--sound-color) 55%, transparent),
+    0 12px 32px -8px color-mix(in srgb, var(--sound-color) 80%, transparent);
+}
+.rhythm-tabs button.selected > span {
+  background: var(--sound-color);
+  color: var(--bm-bg);
+}
+.rhythm-tabs button i {
+  background: var(--bm-mint);
+  box-shadow: 0 0 8px var(--bm-mint);
+}
+.sound-word {
+  background: color-mix(in srgb, var(--sound-color) 16%, var(--bm-surface-2));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--sound-color) 40%, transparent),
+    0 0 30px color-mix(in srgb, var(--sound-color) 28%, transparent);
+  text-shadow: 0 0 14px color-mix(in srgb, var(--sound-color) 70%, transparent);
+}
+.sound-introduction strong {
+  color: var(--bm-text);
+}
+.sound-introduction p {
+  color: var(--bm-text-2);
+}
+.learning-sequence-title {
+  color: var(--bm-text-2);
+}
+.learning-sequence-title > span:last-child {
+  color: var(--bm-text-3);
+}
+.learning-step {
+  background: var(--bm-surface-2);
+  border-color: var(--bm-line);
+  border-radius: 12px;
+  color: var(--bm-text-3);
+  box-shadow: var(--bm-highlight);
+  transition:
+    background var(--bm-dur),
+    box-shadow var(--bm-dur);
+}
+/* Each group of four steps starts on a beat: a lighter cell marks the pulse. */
+.learning-step:nth-child(4n + 1):not(.on) {
+  background: var(--bm-surface-3);
+  border-color: var(--bm-line-strong);
+}
+.learning-step > span:first-child {
+  color: var(--bm-text-3);
+}
+.learning-step.on {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--sound-color) 45%, var(--bm-surface-2)),
+    color-mix(in srgb, var(--sound-color) 14%, var(--bm-surface))
+  );
+  border-color: var(--sound-color);
+  box-shadow:
+    var(--bm-highlight),
+    0 0 0 1px color-mix(in srgb, var(--sound-color) 45%, transparent),
+    0 10px 28px -8px color-mix(in srgb, var(--sound-color) 70%, transparent);
+}
+.learning-step.on > span:first-child {
+  color: color-mix(in srgb, var(--sound-color) 60%, white);
+}
+.learning-step .step-note {
+  color: var(--bm-text);
+  text-shadow: 0 0 12px var(--sound-color);
+}
+.learning-step.sounding {
+  box-shadow:
+    0 0 0 2px var(--bm-text),
+    0 0 26px rgb(255 255 255 / 0.3);
+}
+.learning-sequence > p {
+  color: var(--bm-text-3);
+}
+.sequence-key {
+  box-shadow: 0 0 6px var(--sound-color);
+}
+.sequence-key.off {
+  background: var(--bm-surface-3);
+  box-shadow: inset 0 0 0 1px var(--bm-line-strong);
+}
+.rhythm-navigation {
+  border-top-color: var(--bm-line);
+}
+.rhythm-navigation > span {
+  color: var(--bm-text-3);
+}
+.sound-learned {
+  color: var(--bm-mint) !important;
+}
+.task-reminder {
+  color: var(--bm-violet-200);
+}
+
+/* ── Bass & melody ───────────────────────────────────────────────────────── */
+.notes-illustration.bass > span,
+.notes-illustration.melody > span {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--sound-color) 70%, white),
+    var(--sound-color)
+  );
+  box-shadow: 0 0 24px color-mix(in srgb, var(--sound-color) 55%, transparent);
+}
+.notes-status p {
+  color: var(--bm-text-2);
+}
+.g-check-circle {
+  background: rgb(0 255 153 / 0.14);
+  color: var(--bm-mint);
+  box-shadow: 0 0 22px rgb(0 255 153 / 0.3);
+}
+.manual-notes {
+  border-top-color: var(--bm-line);
+}
+.manual-notes summary {
+  color: var(--bm-violet-200);
+}
+.manual-notes > p {
+  color: var(--bm-text-2);
+}
+/* Keycap skin shared with the instrument tabs: see «Rhythm» above. */
+.note-keys button {
+  border-radius: var(--bm-r-md);
+}
+.note-keys button svg {
+  color: color-mix(in srgb, var(--sound-color) 70%, white);
+}
+.note-keys button.selected svg {
+  color: var(--bm-text);
+}
+
+/* ── Balance ─────────────────────────────────────────────────────────────── */
+.balance-track {
+  border-bottom-color: var(--bm-line);
+}
+.sound-marker {
+  box-shadow: 0 0 10px var(--sound-color);
+}
+.balance-name > span:nth-of-type(2),
+.balance-slider > span {
+  color: var(--bm-text-3);
+}
+.balance-applied {
+  color: var(--bm-mint);
+}
+
+/* ── Finish ──────────────────────────────────────────────────────────────── */
+.finish-art {
+  background: radial-gradient(closest-side, rgb(106 0 255 / 0.42), transparent);
+}
+.finish-art > span {
+  background: var(--bm-mint);
+  color: var(--bm-bg);
+  border-color: var(--bm-surface);
+}
+.finish-lesson label {
+  color: var(--bm-text-2);
+}
+.finish-lesson input {
+  background: var(--bm-surface-2);
+  border-color: var(--bm-line-strong);
+  border-radius: var(--bm-r-md);
+  color: var(--bm-text);
+}
+.finish-lesson input:focus-visible {
+  border-color: var(--bm-violet-400);
+  box-shadow: var(--bm-glow-sm);
+}
+.finish-layers > span {
+  color: var(--bm-text-2);
+}
+
+/* ── Dialogs, toast, settings ────────────────────────────────────────────── */
+.g-modal-backdrop {
+  background: rgb(10 10 11 / 0.78);
+}
+.g-modal {
+  background: var(--bm-glow-top), var(--bm-surface-2);
+  border-color: var(--bm-line-violet);
+  border-radius: var(--bm-r-lg);
+  box-shadow: var(--bm-highlight), var(--bm-glow-lg), var(--bm-drop);
+}
+.g-modal > p,
+.g-details,
+.g-details > p {
+  color: var(--bm-text-2);
+}
+.g-modal .g-fine-print {
+  color: var(--bm-text-3);
+}
+.g-details {
+  border-top-color: var(--bm-line);
+}
+.settings-list > button {
+  background: var(--bm-grad-glass), var(--bm-surface);
+  border-color: var(--bm-line);
+  border-radius: var(--bm-r-md);
+  color: var(--bm-text-2);
+}
+.settings-list > button:hover:not(:disabled) {
+  border-color: var(--bm-line-violet);
+}
+.settings-list > button > svg:first-child {
+  color: var(--bm-violet-300);
+}
+.settings-list span {
+  color: var(--bm-text);
+}
+.settings-list small {
+  color: var(--bm-text-3);
+}
+.hardware-status {
+  background: rgb(0 255 153 / 0.08);
+  border-color: rgb(0 255 153 / 0.25);
+  border-radius: var(--bm-r-sm);
+}
+.g-toast {
+  background: rgb(40 34 54 / 0.88);
+  border-color: var(--bm-line-violet);
+  border-radius: var(--bm-r-md);
+  color: var(--bm-text);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--bm-glow-sm), var(--bm-drop);
+}
+
+/* ── Identity view inside the guide ──────────────────────────────────────── */
+.brand-in-guide .panel {
+  background: var(--bm-glow-top), var(--bm-surface);
+  border-color: var(--bm-line);
+  border-radius: var(--bm-r-lg);
+}
+
+/* ── Introduction ────────────────────────────────────────────────────────── */
+.intro-progress > div > span {
+  background: var(--bm-surface-3);
+}
+.intro-progress > div > span.current {
+  background: var(--bm-grad-primary);
+  box-shadow: 0 0 12px var(--bm-violet-400);
+}
+.intro-progress > div > span.seen {
+  background: var(--bm-violet-600);
+}
+.intro-track-art {
+  background: var(--bm-glow-top), var(--bm-surface-2);
+  border-color: var(--bm-line-violet);
+  border-radius: var(--bm-r-lg);
+  box-shadow:
+    var(--bm-highlight),
+    0 30px 90px -20px rgb(106 0 255 / 0.55);
+}
+.intro-art-tag {
+  color: var(--bm-violet-200);
+}
+.intro-art-row {
+  border-top-color: var(--bm-line);
+}
+.intro-art-row > span {
+  color: var(--bm-text-2);
+}
+.intro-art-row i {
+  background: var(--bm-kick);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--bm-kick) 50%, transparent);
+}
+.intro-art-row.row-1 i {
+  background: var(--bm-bass);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--bm-bass) 50%, transparent);
+}
+.intro-art-row.row-2 i {
+  background: var(--bm-melody);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--bm-melody) 50%, transparent);
+}
+.intro-art-row .rest {
+  box-shadow: none !important;
+}
+.intro-art-note {
+  color: var(--bm-text-3);
+  border-top-color: var(--bm-line);
+}
+.intro-example {
+  background: var(--bm-grad-glass), var(--bm-surface-2);
+  border-color: var(--bm-line-violet);
+  border-radius: var(--bm-r-pill);
+  color: var(--bm-violet-50);
+}
+.intro-preview-note,
+.intro-resume,
+.intro-footer-note {
+  color: var(--bm-text-3);
+}
+.intro-route > div > span,
+.intro-route > div:nth-of-type(2) > span,
+.intro-route > div:nth-of-type(3) > span {
+  background: radial-gradient(circle at 50% 0%, rgb(106 0 255 / 0.55), var(--bm-surface-2) 72%);
+  border-color: var(--bm-line-violet);
+  color: var(--bm-violet-50);
+  box-shadow: var(--bm-highlight), var(--bm-glow-md);
+}
+.intro-route strong {
+  color: var(--bm-text-2);
+}
+.intro-route > svg {
+  color: var(--bm-text-3);
+}
+.intro-reassurance {
+  color: var(--bm-text-2);
+}
+.intro-reassurance.consent {
+  color: var(--bm-mint);
+}
+.intro-beaty-art .beaty-face {
+  background: radial-gradient(circle, rgb(106 0 255 / 0.55), transparent 70%);
+}
+.intro-beaty-bubble,
+.intro-beaty-bubble:before {
+  background: var(--bm-surface-3);
+  border-color: var(--bm-line-violet);
+}
+.intro-beaty-bubble {
+  color: var(--bm-violet-50);
+  box-shadow: var(--bm-glow-sm);
+}
+.intro-beaty-bubble > span {
+  color: var(--bm-mint);
+}
+.intro-footer {
+  border-top-color: var(--bm-line);
+}
+
+/* ── Wide screens: journey rail + fixed transport bar ────────────────────── */
+@media (min-width: 1400px) {
+  .guide-progress button.current {
+    background: rgb(106 0 255 / 0.12);
+    box-shadow: inset 0 0 0 1px var(--bm-line-violet);
+  }
+  .guide-progress button:not(:disabled):not(.current):hover {
+    background: var(--bm-surface-2);
+  }
+  .lesson-footer {
+    background: rgb(18 18 18 / 0.8);
+    backdrop-filter: blur(16px) saturate(140%);
+  }
+  .lesson-footer .listen-bar {
+    border-radius: var(--bm-r-pill);
+  }
+}
+
+/* ── Byte, step icons and infographic graphics ───────────────────────────── */
+.byte {
+  filter: drop-shadow(0 14px 26px rgb(106 0 255 / 0.45));
+}
+.lesson-icon {
+  background: radial-gradient(circle at 50% 0%, rgb(106 0 255 / 0.55), var(--bm-surface-2) 72%);
+  border: 1px solid var(--bm-line-violet);
+  color: var(--bm-violet-50);
+  box-shadow: var(--bm-highlight), var(--bm-glow-md);
+}
+.task-heading > svg {
+  background: rgb(106 0 255 / 0.16);
+  box-shadow: inset 0 0 0 1px var(--bm-line-violet);
+  color: var(--bm-violet-200);
+}
+.guide-progress button > span > i {
+  background: var(--bm-surface-3);
+  color: var(--bm-text-3);
+  box-shadow: 0 0 0 2px var(--bm-bg);
+}
+.guide-progress .visited > span > i {
+  background: var(--bm-mint);
+  color: var(--bm-bg);
+}
+.guide-stage {
+  background: radial-gradient(60% 95% at 78% 100%, rgb(106 0 255 / 0.4), transparent 72%);
+}
+.guide-name {
+  color: var(--bm-text);
+  letter-spacing: var(--bm-track-display);
+}
+.guide-role {
+  color: var(--bm-text-2);
+}
+.guide-tag {
+  border-color: var(--bm-line-violet);
+  border-radius: var(--bm-r-pill);
+  background: rgb(106 0 255 / 0.14);
+  color: var(--bm-violet-200);
+  font-weight: 600;
+}
+
+/* ── Byte speaks: speech bubbles ─────────────────────────────────────────── */
+.byte-bubble,
+.byte-says,
+.finish-lesson h2,
+.byte-bubble::before,
+.byte-says::before,
+.finish-lesson h2::before {
+  background: var(--bm-surface-3);
+  border-color: var(--bm-line-violet);
+}
+.byte-bubble,
+.byte-says,
+.finish-lesson h2 {
+  color: var(--bm-violet-50);
+  box-shadow:
+    var(--bm-highlight),
+    0 14px 34px -16px rgb(106 0 255 / 0.6);
+}
+.byte-says p {
+  color: var(--bm-text-2);
+}
+.byte-avatar {
+  background: var(--bm-violet-900);
+  box-shadow: 0 0 0 1px var(--bm-line-violet);
+  filter: none;
+}
+
+/* ── Help / options row ──────────────────────────────────────────────────── */
+.guide-tool {
+  border-color: var(--bm-line-strong);
+  border-radius: var(--bm-r-pill);
+  background: var(--bm-grad-glass), var(--bm-surface-2);
+  color: var(--bm-text-2);
+}
+.guide-tool:hover:not(:disabled) {
+  border-color: var(--bm-line-violet);
+  color: var(--bm-text);
+}
+@media (min-width: 1400px) {
+  .guide-shell .guide-tools {
+    border-top-color: var(--bm-line);
+  }
+}
+/* Horizontal guide card: the card's own light is enough behind Byte. */
+@media (min-width: 821px) {
+  .guide-stage {
+    background: none;
+  }
+}
+
+/* Byte's replies: the refusal is a real button too, so both answers read as a pair. */
+.beaty-content .byte-replies .g-button.quiet {
+  border-color: var(--bm-line-strong);
+  color: var(--bm-text-2);
+}
+
+/* Balance rows */
+.balance-track {
+  border-bottom-color: var(--bm-line);
+}
+.balance-track:last-child {
+  border-bottom-color: transparent;
+}
+.balance-value {
+  color: var(--bm-text);
+}
+.balance-track.empty .balance-value {
+  color: var(--bm-text-3);
+}
+
+/* Byte's proposal answers: three colours for three different actions.
+   Listen = orchid (secondary), use it = violet (primary), keep mine = green accent (safety:
+   nothing changes). */
+.beaty-content .byte-replies .g-button.listen-idea {
+  background: var(--bm-grad-orchid);
+  border-color: transparent;
+  color: var(--bm-on-violet);
+  box-shadow:
+    var(--bm-highlight),
+    0 0 0 1px rgb(167 97 195 / 0.5),
+    0 0 22px rgb(167 97 195 / 0.45);
+}
+.beaty-content .byte-replies .g-button.listen-idea:hover:not(:disabled) {
+  box-shadow:
+    var(--bm-highlight),
+    0 0 0 1px rgb(167 97 195 / 0.7),
+    0 10px 34px -6px rgb(167 97 195 / 0.7);
+}
+.beaty-content .byte-replies .g-button.keep-mine {
+  background: rgb(0 255 153 / 0.06);
+  border-color: rgb(0 255 153 / 0.55);
+  color: var(--bm-mint);
+}
+.beaty-content .byte-replies .g-button.keep-mine:hover:not(:disabled) {
+  background: rgb(0 255 153 / 0.12);
+  box-shadow: 0 0 18px rgb(0 255 153 / 0.25);
+}
+
+/* ── Ir a núcleo 3 ── orchid, so it never reads as the step's own «Siguiente» */
+.nucleus-link {
+  border: 1px solid var(--bm-orchid-200);
+  border-radius: var(--bm-r-pill);
+  background: var(--bm-grad-nucleus);
+  color: var(--bm-text);
+  box-shadow: var(--bm-highlight), var(--bm-glow-orchid);
+}
+.nucleus-link:hover {
+  box-shadow: var(--bm-highlight), var(--bm-glow-orchid-strong);
+}
+.nucleus-link small {
+  color: var(--bm-orchid-200);
+  letter-spacing: var(--bm-track-label);
+}
+.nucleus-link > i {
+  background: var(--bm-text);
+  color: var(--bm-violet-500);
+  box-shadow: 0 6px 18px -6px rgb(106 0 255 / 0.8);
+}

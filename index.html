@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#09070f" />
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+    <title>BeatMind — Tu primer beat empieza acá</title>
+    <style>
+      body {
+        margin: 0;
+        background: #09070f;
+      }
+      /* Shown only if the app never mounts (e.g. opened with Live Server instead of Vite). */
+      .boot-fallback {
+        max-width: 520px;
+        margin: 15vh auto;
+        padding: 0 24px;
+        color: #f6f4ff;
+        font: 16px/1.7 system-ui, sans-serif;
+        opacity: 0;
+        animation: boot-fallback 0.2s 1.5s forwards;
+      }
+      .boot-fallback code {
+        color: #cdbbff;
+        background: #171324;
+        padding: 2px 8px;
+        border-radius: 6px;
+      }
+      @keyframes boot-fallback {
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="boot-fallback">
+        <h1>BeatMind no pudo arrancar</h1>
+        <p>
+          Esta app está hecha con React y TypeScript y todavía no tiene una versión compilada en la
+          carpeta <code>dist</code>.
+        </p>
+        <p>
+          En la terminal de VS Code ejecutá <code>npm.cmd run build</code> y volvé a abrir con Live
+          Server. Para trabajar con recarga automática usá <code>npm.cmd run start</code> (o
+          <code>Ctrl+Shift+B</code>).
+        </p>
+      </div>
+    </div>
+    <!-- Without Vite (Live Server, static hosting) the TSX entry cannot load: fall back to the
+         compiled build in dist/ if it exists. Vite drops this tag from the build output. -->
+    <script
+      type="module"
+      src="/src/main.tsx"
+      onerror="fetch('./dist/index.html', { method: 'HEAD' }).then((r) => r.ok && location.replace('./dist/index.html'))"
+    ></script>
+  </body>
+</html>
