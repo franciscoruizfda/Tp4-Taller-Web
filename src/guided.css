@@ -3833,3 +3833,25 @@
     height: 40px;
   }
 }
+
+/* «Ir a núcleo 3» stays locked until the beat is downloaded: still visible, but quiet. */
+.nucleus-link.locked {
+  cursor: help;
+}
+.nucleus-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 4px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .nucleus-link.locked:hover {
+    transform: none;
+  }
+  .nucleus-link.locked:hover > i {
+    transform: none;
+  }
+}

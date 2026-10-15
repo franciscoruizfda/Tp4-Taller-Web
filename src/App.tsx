@@ -68,6 +68,7 @@ import {
   type TrackId,
 } from './music';
 import { connectMidi, connectSerial, type HardwareEvent } from './hardware';
+import { bloquearNucleo3, desbloquearNucleo3, useNucleo3Abierto } from './nucleo3';
 import './guided.css';
 
 const STORAGE_KEY = 'beatmind-project-v1';
@@ -276,6 +277,7 @@ export default function App() {
   const [step, setStep] = useState(-1);
   const [saved, setSaved] = useState(false);
   const [toast, setToast] = useState('');
+  const nucleusOpen = useNucleo3Abierto();
   const [exporting, setExporting] = useState(false);
   const [modal, setModal] = useState<Modal>(null);
   const [history, setHistory] = useState<Project[]>([]);
@@ -668,7 +670,8 @@ export default function App() {
     setExporting(true);
     try {
       download(await exportWav(projectRef.current), `${filename(projectRef.current.name)}.wav`);
-      notice('Tu beat está listo para compartir. Lo guardamos como audio WAV.');
+      desbloquearNucleo3();
+      notice('Tu beat está listo para compartir. Lo guardamos como audio WAV. Ya podés seguir al núcleo 3.');
     } catch {
       notice('No pudimos guardar el audio. Intentá otra vez.');
     } finally {
@@ -689,6 +692,8 @@ export default function App() {
   };
   const startNew = () => {
     stop();
+    // A new beat is a new visitor: they have to make and download their own to go on.
+    bloquearNucleo3();
     commit(() => makeGuidedProject());
     // Many people share one screen: the previous beat must not come back through Undo.
     setHistory([]);
@@ -841,10 +846,16 @@ export default function App() {
                 <p>{lesson.intro}</p>
               </div>
               <a
-                className="nucleus-link"
-                href={NEXT_NUCLEUS_URL || '#'}
-                aria-label="Ir a núcleo 3"
+                className={`nucleus-link ${nucleusOpen ? '' : 'locked'}`}
+                href={nucleusOpen && NEXT_NUCLEUS_URL ? NEXT_NUCLEUS_URL : '#'}
+                aria-label={nucleusOpen ? 'Ir a núcleo 3' : 'Ir a núcleo 3: bloqueado hasta que descargues tu beat'}
+                aria-disabled={nucleusOpen ? undefined : true}
                 onClick={(e) => {
+                  if (!nucleusOpen) {
+                    e.preventDefault();
+                    notice('Antes de seguir, creá tu beat y descargalo en el último paso, con «Guardar mi beat como audio».');
+                    return;
+                  }
                   stop();
                   if (!NEXT_NUCLEUS_URL) {
                     e.preventDefault();
@@ -853,12 +864,10 @@ export default function App() {
                 }}
               >
                 <span>
-                  <small>Seguí la infografía</small>
+                  <small>{nucleusOpen ? 'Seguí la infografía' : 'Primero descargá tu beat'}</small>
                   Ir a núcleo 3
                 </span>
-                <i aria-hidden="true">
-                  <ArrowRight size={22} />
-                </i>
+                <i aria-hidden="true">{nucleusOpen ? <ArrowRight size={22} /> : <LockKeyhole size={20} />}</i>
               </a>
             </section>
             <div className="lesson-layout">
@@ -1243,6 +1252,12 @@ export default function App() {
                     <p className="lesson-caption">
                       Un archivo WAV con tu base repetida cuatro veces. Listo para escuchar y
                       compartir.
+                    </p>
+                    <p className={`nucleus-hint ${nucleusOpen ? 'open' : ''}`}>
+                      {nucleusOpen ? <Check size={16} /> : <LockKeyhole size={16} />}
+                      {nucleusOpen
+                        ? 'Núcleo 3 desbloqueado: ya podés seguir con la infografía.'
+                        : 'Al descargarlo se desbloquea el núcleo 3.'}
                     </p>
                     <button className="g-text" onClick={saveFile}>
                       <FolderOpen size={17} />

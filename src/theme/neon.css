@@ -1062,3 +1062,29 @@ summary:focus-visible {
   color: var(--bm-violet-500);
   box-shadow: 0 6px 18px -6px rgb(106 0 255 / 0.8);
 }
+
+/* Locked: glass instead of the orchid gradient, with a padlock (state is never colour alone). */
+.nucleus-link.locked {
+  border-color: var(--bm-line-strong);
+  background: var(--bm-grad-glass), var(--bm-surface-2);
+  color: var(--bm-text-2);
+  box-shadow: var(--bm-highlight);
+}
+.nucleus-link.locked:hover {
+  border-color: var(--bm-line-violet);
+  box-shadow: var(--bm-highlight);
+}
+.nucleus-link.locked small {
+  color: var(--bm-text-3);
+}
+.nucleus-link.locked > i {
+  background: var(--bm-surface-3);
+  color: var(--bm-violet-200);
+  box-shadow: none;
+}
+.nucleus-hint {
+  color: var(--bm-text-3);
+}
+.nucleus-hint.open {
+  color: var(--bm-mint);
+}
