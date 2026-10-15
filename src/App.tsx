@@ -71,9 +71,10 @@ import { connectMidi, connectSerial, type HardwareEvent } from './hardware';
 import './guided.css';
 
 const STORAGE_KEY = 'beatmind-project-v1';
-// "Ir a núcleo 3" goes back to the Figma prototype this app is part of, on its Núcleo 3 slide.
-// While it is empty, the button still shows and Byte says it is not ready.
-const NEXT_NUCLEUS_URL = '';
+// "Ir a núcleo 3" goes back to the Figma prototype this app is part of, on its Núcleo 3 slide
+// (node 265-167). If it is ever emptied, the button still shows and Byte says it is not ready.
+const NEXT_NUCLEUS_URL =
+  'https://www.figma.com/proto/Qz1d1AwBF25vTohWgY3tLd/Taller?node-id=265-167&viewport=396%2C42%2C0.03&t=jfn8lmM8aoVzfVte-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=54%3A66&page-id=0%3A1';
 const GUIDE_KEY = 'beatmind-guide-v1';
 function initialSession() {
   let project = makeGuidedProject();
